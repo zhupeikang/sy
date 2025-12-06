@@ -1,0 +1,1 @@
+curl -X POST http://192.168.77.67:8080/job/pro-v.21-f-sylf.zhizhangame.com/build --user xuqh:112b183d25789f8be1ab33c6aa24865238

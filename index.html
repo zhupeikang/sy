@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+  <title>
+    <%= title %>
+  </title>
+  <style>
+    .body-gray {
+      /*grayscale(val):val值越大灰度就越深*/
+      -webkit-filter: grayscale(100%);
+      -moz-filter: grayscale(100%);
+      -o-filter: grayscale(100%);
+      filter: grayscale(100%);
+      text-align: center;
+    }
+
+    .ignore-pc-box {
+      width: 960px;
+      margin: 0 auto;
+    }
+
+    .ignore-phone-iframe {
+      width: 411px;
+      height: 766px;
+      border-radius: 75px;
+      box-shadow: inset #000 0 0 3px 1px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .ignore-phone-iframe>div {
+      position: absolute;
+      top: 8px;
+      width: 375px;
+      height: 730px;
+      left: 8px;
+      border: 10px solid #222;
+      border-radius: 68px;
+      overflow: hidden;
+    }
+
+    .ignore-phone-iframe .ignore-scrtop {
+      height: 105px;
+      background: #F2F2F0 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='92' height='12'%3e%3cpath d='M15 0h3v12h-3V0zm-5 3h3v9h-3V3zM5 6h3v6H5V6zM0 9h3v3H0V9zm35.8.2C35.1 8.5 34.1 8 33 8s-2.1.4-2.8 1.2L33 13l2.8-2.8zm-8.5-2.9l1.4 1.4c1.1-1.1 2.6-1.8 4.2-1.8s3.2.7 4.2 1.8l1.4-1.4C37.1 4.9 35.1 4 32.8 4c-2 0-4 .9-5.5 2.3zm-2.8-2.8l1.4 1.4C27.7 3.1 30.2 2 33 2s5.3 1.1 7.1 2.9l1.4-1.4C39.3 1.3 36.3 0 33 0s-6.3 1.3-8.5 3.5zM50 2h20v8H50V2zm22 10H48V0h24v12zm-23-1h22V1H49v10zm24-8h2v6h-2V3z'/%3e%3c/svg%3e") no-repeat 100% 18px;
+      border-bottom: 1px solid #e1e1e1;
+      font-family: system-ui;
+    }
+
+    .ignore-cl {
+      zoom: 1;
+    }
+
+    .ignore-phone-iframe .ignore-time {
+      width: 70px;
+      height: 39px;
+      float: left;
+      text-align: right;
+      padding-top: 13px;
+      padding-right: 25px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .ignore-phone-iframe .ignore-title {
+      margin: 0 12px;
+      padding: 0 35px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
+      text-align: center;
+      border-radius: 10px;
+      background: #d8d8d8;
+      color: #000;
+    }
+
+    .ignore-phone-iframe .ignore-defect {
+      width: 185px;
+      height: 33px;
+      background: #222;
+      border-radius: 0 0 25px 25px;
+      float: left;
+    }
+
+    .ignore-cl:after {
+      content: ".";
+      display: block;
+      height: 0;
+      clear: both;
+      visibility: hidden;
+    }
+
+    /**隐藏iframe的滚动条，但是允许滚动**/
+    #ignore-phone-if {
+      width: 100%;
+      height: 600px;
+      vertical-align: middle;
+    }
+
+    .ignore-phone-iframe .ignore-homebar {
+      width: 153px;
+      height: 6px;
+      border-radius: 3px;
+      background: #000;
+      margin-left: 111px;
+      margin-top: 10px;
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .bg-none{
+      background-color: transparent;
+    }
+    .bg-pc{
+      /* background-image: url('./src/assets/pc/bg.png'); */
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      background-position: top center;
+    }
+    .ignore-pc-copyright{
+      text-align: center;
+      margin-top:50px;
+    }
+    .ignore-pc-copyright> *{
+      font-size:12px;
+      margin:20px 10px;
+    }
+  </style>
+  <script charset="UTF-8" id="LA_COLLECT" src="/js-sdk-pro.min.js"></script>
+  <script type="module">
+    const env = import.meta.env.VITE_APP_ENV;
+    console.log(env);
+    if (env === 'pro') {
+      LA.init({
+        id: import.meta.env.VITE_51LA_MASK,
+        ck: import.meta.env.VITE_51LA_MASK,
+        hashMode: true,
+        autoTrack: true,
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <script>
+    if (window.innerWidth > 600) {
+
+      document.body.classList.add('bg-none')
+      document.body.classList.add('bg-pc')
+      var date = new Date()
+      var hours = date.getHours()
+      if (hours < 10) {
+        hours = '0' + hours;
+      }
+      var minutes = date.getMinutes()
+      if (minutes < 10) {
+        minutes = '0' + minutes;
+      }
+      document.writeln('<div class="ignore-pc-box">')
+      document.writeln('<div class="ignore-phone-iframe">')
+      document.writeln('<div>')
+      document.writeln('<div class="ignore-scrtop">')
+      document.writeln('<div class="ignore-cl">')
+      document.writeln('<div class="ignore-time">' + hours + ':' + minutes + '</div>')
+      document.writeln('<div class="ignore-defect"></div>')
+      document.writeln('</div>')
+      document.writeln('<div class="ignore-title">拾元立方</div>')
+      document.writeln('</div>')
+      document.writeln('<iframe id="ignore-phone-if" frameborder="0" src="' + window.location.href + '" ></iframe>')
+      document.writeln('<div class="ignore-homebar"></div>')
+      document.writeln('</div>')
+      document.writeln('</div>')
+
+      document.writeln('<div class="ignore-pc-copyright" _nk="Rfp22j"><span _nk="Rfp283">新出发沪零字第K9683号</span><a href="https://beian.miit.gov.cn/" target="_blank" _nk="Rfp291">沪ICP备19047503号-2</a><span _nk="Rfp284">沪网文【2017】1152-016号</span><span>沪网信备31011523631635910013号</span></div>')
+      document.writeln('</div>')
+      setInterval(function () {
+        var date = new Date()
+        var hours = date.getHours()
+        if (hours < 10) {
+          hours = '0' + hours;
+        }
+        var minutes = date.getMinutes()
+        if (minutes < 10) {
+          minutes = '0' + minutes;
+        }
+        document.getElementsByClassName('ignore-time')[0].innerHTML = hours + ':' + minutes
+      }, 1000)
+
+    } else {
+      document.writeln('<div id="app"></div>')
+    }
+  </script>
+
+  <script type="module" src="/src/main.ts"></script>
+  <script src="//res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+
+
+</body>
+<script>
+  // document.write("<script>!function(p){\"use strict\";!function(t){var s=window,e=document,i=p,c=\"\".concat(\"https:\"===e.location.protocol?\"https://\":\"http://\",\"demo.com/plugins/js-sdk-pro.min.js\"),n=e.createElement(\"script\"),r=e.getElementsByTagName(\"script\")[0];n.type=\"text/javascript\",n.setAttribute(\"charset\",\"UTF-8\"),n.async=!0,n.src=c,n.id=\"LA_COLLECT\",i.d=n;var o=function(){s.LA.ids.push(i)};s.LA?s.LA.ids&&o():(s.LA=p,s.LA.ids=[],o()),r.parentNode.insertBefore(n,r)}()}({id:\"统计掩码\",ck:\"统计掩码\", autoTrack: true, prefix: \"plugins\"});")
+
+</script>
+
+</html>

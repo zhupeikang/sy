@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>996传奇盒子小说征文大赛 - 拾元立方</title>
+    <link href="//cdn.staticfile.org/layui/2.8.1/css/layui.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=2">
+    <style>
+
+    </style>
+</head>
+
+<body class="sign-page">
+
+    <i class="layui-icon layui-icon-left back"></i>
+    <div class="sign-form">
+
+        <form class="layui-form " action="">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <input type="text" name="name" id="name" required lay-verify="required" placeholder="请输入姓名"
+                        autocomplete="off" class="layui-input" maxlength="18" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <input type="text" name="idcard" id="idcard" required lay-verify="required" placeholder="请输入身份证号"
+                        autocomplete="off" class="layui-input" maxlength="18" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <input type="text" name="mobile" id="mobile" required lay-verify="required" placeholder="请输入手机号"
+                        autocomplete="off" class="layui-input" maxlength="11" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <input type="text" name="code" id="code" required lay-verify="required" placeholder="请输入验证码"
+                    autocomplete="off" class="layui-input code-input" maxlength="6">
+                <button class="layui-btn layui-btn-danger" type="button" id="msg-button">发送验证码</button>
+
+            </div>
+
+            <p class="tips">若您提交的手机号未注册过《拾元立方》平台，将自动使用您的手机号进行注册</p>
+            <p class="tips">报名QQ群号码：123593814</p>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="*">确认报名</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="//cdn.staticfile.org/layui/2.8.1/layui.js"></script>
+    <script>
+        var domain = 'https://v2-api-sylf.jimutang.com/v2/';
+    </script>
+    <script charset="UTF-8" id="LA_COLLECT" src="/js-sdk-pro.min.js"></script>
+    <script>
+        LA.init({id:"JvqJHsEqvz6JkKPM",ck:"JvqJHsEqvz6JkKPM",autoTrack:true})
+        
+        //获取get参数
+        function getQueryString(name) {
+            //获取url中的参数
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            //获取url中的参数
+            var r = window.location.search.substr(1).match(reg);
+            //判断参数是否存在
+            if (r != null) {
+                //返回参数
+                return unescape(r[2]);
+            }
+            //返回空
+            return null;
+        }
+        layui.use(['form', 'layer'], function () {
+            var form = layui.form, layer = layui.layer, $ = layui.jquery;
+            var from = getQueryString('from');
+            if (!from) from = '';
+            // LA.track('cqxsds', {'action':'sign', 'from':from});
+            
+            $('.back').click(function () {
+                console.log('click back', history.length)
+                if (history.length == 1) {
+                    console.log('跳转回首页')
+                    window.location.href = '/';
+                } else {
+                    history.back();
+                }
+            })
+            var timeclock = 0;
+            var interval = null;
+            $('#msg-button').click(function () {
+                if (timeclock > 0) {
+                    return false;
+                }
+                var mobile = $('#mobile').val();
+                if (!mobile) {
+                    layer.msg('请输入手机号');
+                    return false;
+                }
+                //正则验证手机号
+                var reg = /^1[3456789]\d{9}$/;
+                if (!reg.test(mobile)) {
+                    layer.msg('请输入正确的手机号');
+                    return false;
+                }
+                //发送验证码
+                var index = layer.load();
+
+                $.post(domain + 'sms/cqxsds', {
+                    mobile: mobile,
+                    type: 4,
+                    zone: 86
+                }, function (res) {
+                    layer.close(index);
+                    //启用button
+                    if (res.code != 200) {
+                        return layer.open({
+                            title: '发送失败',
+                            content: res.msg
+                        });
+                    }
+                    layer.msg('发送成功');
+                    $('#msg-button').attr('disabled', true);
+                    //倒计时
+                    timeclock = 60;
+                    interval = setInterval(function () {
+                        timeclock--;
+                        if (timeclock <= 0) {
+                            clearInterval(interval);
+                            $('#msg-button').attr('disabled', false);
+                            $('#msg-button').text('发送验证码');
+                            return;
+                        }
+                        $('#msg-button').text(timeclock + '秒后重发');
+                    }, 1000);
+
+
+                })
+                    .error(function (err) {
+
+                        layer.close(index);
+                        console.error(err);
+                        layer.open({
+                            title: '发送错误',
+                            content: err.statusText
+                        });
+                        $('#msg-button').attr('disabled', false);
+                    })
+            })
+            //提交
+            form.on('submit(*)', function (data) {
+                var index = layer.load();
+                data.field.from = from
+                $.post(domain + 'activity/cqxsds', data.field, function (res) {
+                    layer.close(index);
+                    if (res.code == 200) {
+                        layer.open({
+                            type: 1,
+                            area: '300px',
+                            resize: false,
+                            title: '恭喜您报名成功！',
+                            content: res.data.html
+                        });
+                        localStorage.setItem('user-token', res.data.login.token);
+                        return
+                    }
+                    layer.open({
+                        title: '报名失败',
+                        content: res.msg
+                    });
+                })
+                    .error(function (err) {
+                        layer.close(index);
+                        console.error(err);
+                        layer.open({
+                            title: '报名错误',
+                            content: err.statusText
+                        });
+                    })
+                return false;
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+
+.params {
+    padding: var(--padding-box);
+}
+
+.info,
+.rights {
+    position: relative;
+    padding: 20px 0;
+
+
+    .arrow {
+        position: absolute;
+        right: 0;
+        height: 30px;
+        line-height: 30px;
+        top: calc(50% - 15px);
+        font-size: var(--size-info);
+    }
+}
+
+
+.top-tabs {
+    --van-tabs-nav-background: var(--theme-bar);
+
+    :deep(.van-sticky) {
+        width: 750px;
+        position: fixed;
+        z-index: var(--van-sticky-z-index);
+        opacity: var(--tab-opacity);
+
+        .van-tabs__content {
+            font-size: 0px;
+        }
+    }
+}
+
+
+.html {
+    :deep(img) {
+        max-width: 100%;
+    }
+
+    :deep(img) {
+        max-width: 100%;
+    }
+}
+.desc_img{
+    max-width: 100%;
+}

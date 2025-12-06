@@ -1,0 +1,225 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//cdn.staticfile.org/layui/2.7.6/css/layui.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>996传奇盒子小说征文大赛 - 拾元立方</title>
+    <style>
+        img {
+            width: 100%;
+        }
+
+        .btn {
+            position: absolute;
+            /* background: rgba(0, 0, 0, .5); */
+            width: 40vw;
+            height: 13vw;
+            z-index: 10;
+            display: block;
+            left: 30vw;
+        }
+
+        .share {
+            top: 145vw;
+
+        }
+
+        .sign {
+            top: 174vw;
+        }
+
+        .ac-link {
+            position: absolute;
+            /* background: rgba(0, 0, 0, .5); */
+            width: 18.6vw;
+            height: 6vw;
+            z-index: 10;
+            display: block;
+            top: 195vw;
+        }
+
+        .ac-link.intro {
+            left: 12.5vw;
+        }
+
+        .ac-link.allp {
+            left: 31.1vw;
+        }
+
+        .ac-link.resultp {
+            left: 50.5vw;
+            width: 18.2vw;
+        }
+
+        .ac-link.home {
+            left: 69.4vw;
+            width: 18.2vw;
+        }
+
+        .pc {
+            display: none;
+        }
+
+        @media screen and (min-width:750px) {
+            .mobile {
+                display: none;
+            }
+
+            .pc {
+                display: block;
+            }
+
+            .btn {
+                width: 14vw;
+                height: 5vw;
+                left: 42vw;
+            }
+
+            .share {
+                top: 40.5vw;
+            }
+
+            .sign {
+                top: 34.8vw;
+            }
+
+            .ac-link {
+                top: 49vw;
+                height: 5vw;
+            }
+
+            .ac-link.intro {
+                left: 25vw;
+                width: 12.3vw;
+            }
+
+            .ac-link.allp {
+                left: 37.5vw;
+                width: 11.5vw;
+            }
+
+            .ac-link.resultp {
+                left: 49vw;
+                width: 11.8vw;
+            }
+
+            .ac-link.home {
+                left: 60.9vw;
+                width: 11.6vw;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mobile">
+
+        <a href="javascript:void(0)" onclick="scrollIntoView('#intro')" class="ac-link intro"></a>
+        <img src="https://oss-sylf.zhizhangame.com/storage/988c3534f030a950d468447a04a9428874eb2614.jpg" alt="">
+        <img src="https://oss-sylf.zhizhangame.com/storage/59c0083f102209a724e82b986aa40ab246373dbd.jpg" alt=""
+            id="intro">
+
+        <img src="https://oss-sylf.zhizhangame.com/storage/12c96033b129b7548519900dd18b7a46480c9a4a.jpg" alt="">
+        <img src="https://oss-sylf.zhizhangame.com/storage/10f43a2b030841a9b3da69ae1ff900e45b3e87c6.jpg" alt="">
+        <img src="https://oss-sylf.zhizhangame.com/storage/cf685bb8daf2e1fa7df8dbc2e7fa09dc04aff590.jpg" alt="">
+    </div>
+    <div class="pc">
+
+        <a href="javascript:void(0)" onclick="scrollIntoView('#intro_pc')" class="ac-link intro"></a>
+        <img src="https://oss-sylf.zhizhangame.com/storage/e879fc7b49718ef3ddb8ad0db0be66d18b5100d0.jpg" alt="">
+        <img src="https://oss-sylf.zhizhangame.com/storage/5039d0435a210e8e13b34f069615dea24125d88e.jpg" alt=""
+            id="intro_pc">
+        <img src="https://oss-sylf.zhizhangame.com/storage/c5d993f2d29b74eb3d8bc583271ffb39fafe070b.jpg" alt="">
+        <img src="https://oss-sylf.zhizhangame.com/storage/f20a2111accb4c435eecbe20e9608b3fd2875710.jpg" alt="">
+    </div>
+
+    <a class="btn share" href="/plan/WYXACL"></a>
+    <a class="btn sign" href="sign.html" id="sign-link"></a>
+    <a href="javascript:void(0)" onclick="showToast('暂未开启')" class="ac-link allp"></a>
+    <a href="javascript:void(0)" onclick="showToast('暂未开启')" class="ac-link resultp"></a>
+    <a href="https://www.996box.com/shiyuanlifang" class="ac-link home"></a>
+    <script src="//cdn.staticfile.org/layui/2.7.6/layui.js"></script>
+    <script charset="UTF-8" id="LA_COLLECT" src="/js-sdk-pro.min.js"></script>
+    <script>
+        LA.init({id:"JvqJHsEqvz6JkKPM",ck:"JvqJHsEqvz6JkKPM",autoTrack:true})
+
+        function showToast(msg) {
+            layer.msg(msg, {
+                icon: 4,
+                offset: '50vh',
+            })
+
+        }
+        function scrollIntoView(traget) {
+            var tragetElem = document.querySelector(traget);
+            var tragetElemPostition = tragetElem.offsetTop;
+
+            // 判断是否支持新特性
+            if (
+                typeof window.getComputedStyle(document.body).scrollBehavior ==
+                "undefined"
+            ) {
+                // 当前滚动高度
+                var scrollTop =
+                    document.documentElement.scrollTop || document.body.scrollTop;
+                // 滚动step方法
+                var step = function () {
+                    // 距离目标滚动距离
+                    var distance = tragetElemPostition - scrollTop;
+
+                    // 目标需要滚动的距离，也就是只走全部距离的五分之一
+                    scrollTop = scrollTop + distance / 5;
+                    if (Math.abs(distance) < 1) {
+                        window.scrollTo(0, tragetElemPostition);
+                    } else {
+                        window.scrollTo(0, scrollTop);
+                        setTimeout(step, 20);
+                    }
+                };
+                step();
+            } else {
+                tragetElem.scrollIntoView({
+                    behavior: "smooth",
+                    inline: "nearest"
+                });
+            }
+        }
+
+        layui.use(['layer'], function () {
+            var $ = layui.jquery
+            //通过get中获取from参数
+            var from = getQueryString('from');
+            if (!from) from = '';
+            //判断from参数是否存在
+            // LA.track('cqxsds', {'action':'index', 'from':from});
+            if (from) {
+                //判断from参数是否为sign
+                console.log(from)
+                //修改报名链接
+                $('#sign-link').attr('href', 'sign.html?from=' + from)
+            }
+
+        })
+
+        //获取get参数
+        function getQueryString(name) {
+            //获取url中的参数
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            //获取url中的参数
+            var r = window.location.search.substr(1).match(reg);
+            //判断参数是否存在
+            if (r != null) {
+                //返回参数
+                return unescape(r[2]);
+            }
+            //返回空
+            return null;
+        }
+    </script>
+</body>
+
+</html>

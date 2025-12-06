@@ -1,0 +1,23 @@
+{
+  "id": "3929269",
+  "name": "拾元立方",
+  "font_family": "sylf-icon",
+  "css_prefix_text": "sylf-icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "4766985",
+      "name": "share",
+      "font_class": "share",
+      "unicode": "e7e7",
+      "unicode_decimal": 59367
+    },
+    {
+      "icon_id": "4766481",
+      "name": "file-copy",
+      "font_class": "file-copy",
+      "unicode": "e7bc",
+      "unicode_decimal": 59324
+    }
+  ]
+}

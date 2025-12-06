@@ -1,0 +1,18 @@
+/**
+记录订单颜色状态
+**/
+.order-status-pending{
+    background-color:var(--red) !important;
+}
+.order-status-success{
+    background-color:var(--theme-gold) !important;
+}
+.order-status-expire{
+    background-color:var(--gray) !important;
+}
+.order-status-refunding{
+    background-color:var(--orange) !important;
+}
+.order-status-refund{
+    background-color:var(--mauve) !important;
+}

@@ -1,0 +1,584 @@
+@import url("./assets/iconfont/iconfont.css");
+@import url("./assets/css/layout.css");
+@import url("./assets/css/order.css");
+
+body {
+    --van-radio-label-color: #e1e1e1;
+    --theme-deep-gold: #dbb985;
+    --theme-gold: #baa586;
+    --theme-gradual-gold: linear-gradient(to right, #f8efd4, #dbb985);
+    --theme-gradual-cell: linear-gradient(to right, #1e1e1e, #36332d);
+    --theme-gradual-btn: linear-gradient(to right, #dec8a4, #d9bd8c);
+    --theme-deep-gray: #666666;
+    --theme-bg: #222222;
+    --theme-bar: #080808;
+    --van-button-primary-background: var(--theme-gradual-btn);
+    --van-share-sheet-title-color: var(--theme-deep-gold);
+    --van-share-sheet-cancel-button-background: var(--theme-bar);
+    --van-cell-text-color: #ffffff;
+    --van-count-down-text-color: var(--van-cell-value-color);
+    --van-checkbox-label-color: #ffffff;
+    --van-step-finish-text-color: var(--theme-gold);
+    --van-step-horizontal-title-font-size: 28px;
+    --van-steps-background: transparent;
+    --van-popup-background: var(--theme-bg);
+    --van-card-background: var(--theme-gradual-cell);
+    --van-search-content-background: transparent;
+    --van-back-top-background: var(--theme-deep-gold);
+    --van-cell-group-background: transparent;
+    --van-cell-background: transparent;
+    --van-text-color: #ffffff;
+    --van-calendar-background: var(--theme-bg);
+    --van-picker-background: var(--theme-bg);
+    --van-picker-option-text-color: #ffffff;
+    --van-dialog-background: var(--theme-bg);
+    --van-picker-mask-color: linear-gradient(180deg, rgba(0, 0, 0, .9), rgba(0, 0, 0, .4)), linear-gradient(0deg, rgba(0, 0, 0, .9), rgba(0, 0, 0, .4));
+    --van-tabbar-background: #080808;
+    --van-toast-text-color: #ffffff;
+    --van-toast-background: rgba(219, 185, 133, 0.8);
+    --van-field-label-color: #ffffff;
+    --van-field-input-text-color: #e1e1e1;
+    --van-cell-active-color: #baa586;
+    /* --van-toast-text-color: var(--van-black); */
+    --van-tabbar-item-active-background: var(--van-black);
+    --van-tabbar-item-text-color: #999999;
+    --van-grid-item-content-background: transparent;
+    --van-grid-item-text-color: #999999;
+    --van-grid-item-icon-size: 80px;
+    --van-search-background: transparent;
+    --van-nav-bar-icon-color: #ffffff;
+    --van-dialog-has-title-message-text-color: var(--gray);
+
+    color: var(--theme-deep-gold);
+    background-color: var(--theme-bg);
+    /* 标准色 */
+    --red: #e54d42;
+    --orange: #f37b1d;
+    --yellow: #fbbd08;
+    --olive: #8dc63f;
+    --green: #39b54a;
+    --cyan: #1cbbb4;
+    --blue: #0081ff;
+    --purple: #6739b6;
+    --mauve: #9c26b0;
+    --pink: #e03997;
+    --brown: #a5673f;
+    --grey: #8799a3;
+    --black: #333333;
+    --darkGray: #666666;
+    --gray: #aaaaaa;
+    --ghostWhite: #f1f1f1;
+    --white: #ffffff;
+    /* 浅色 */
+    --redLight: #fadbd9;
+    --orangeLight: #fde6d2;
+    --yellowLight: #fef2ce;
+    --oliveLight: #e8f4d9;
+    --greenLight: #d7f0db;
+    --cyanLight: #d2f1f0;
+    --blueLight: #cce6ff;
+    --purpleLight: #e1d7f0;
+    --mauveLight: #ebd4ef;
+    --pinkLight: #f9d7ea;
+    --brownLight: #ede1d9;
+    --greyLight: #e7ebed;
+    /* 渐变色 */
+    --gradualRed: linear-gradient(45deg, #f43f3b, #ec008c);
+    --gradualOrange: linear-gradient(45deg, #ff9700, #ed1c24);
+    --gradualGreen: linear-gradient(45deg, #39b54a, #8dc63f);
+    --gradualPurple: linear-gradient(45deg, #9000ff, #5e00ff);
+    --gradualPink: linear-gradient(45deg, #ec008c, #6739b6);
+    --gradualBlue: linear-gradient(45deg, #0081ff, #1cbbb4);
+    /* 阴影透明色 */
+    --ShadowSize: 6rpx 6rpx 8rpx;
+    --redShadow: rgba(204, 69, 59, 0.2);
+    --orangeShadow: rgba(217, 109, 26, 0.2);
+    --yellowShadow: rgba(224, 170, 7, 0.2);
+    --oliveShadow: rgba(124, 173, 55, 0.2);
+    --greenShadow: rgba(48, 156, 63, 0.2);
+    --cyanShadow: rgba(28, 187, 180, 0.2);
+    --blueShadow: rgba(0, 102, 204, 0.2);
+    --purpleShadow: rgba(88, 48, 156, 0.2);
+    --mauveShadow: rgba(133, 33, 150, 0.2);
+    --pinkShadow: rgba(199, 50, 134, 0.2);
+    --brownShadow: rgba(140, 88, 53, 0.2);
+    --greyShadow: rgba(114, 130, 138, 0.2);
+    --grayShadow: rgba(114, 130, 138, 0.2);
+    --blackShadow: rgba(26, 26, 26, 0.2);
+}
+
+/* 在线链接服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
+@font-face {
+    font-family: "AlimamaShuHeiTi-Bold";
+    font-weight: 700;
+    src: url("//oss-sylf.zhizhangame.com/storage_test/c6a35f1eeb81d25eb185a7cab696b6ced3cabbf5.woff2") format("woff2"),
+    url("//oss-sylf.zhizhangame.com/storage_test/616099487df5bb2003e80c94eca2ecbf37919c37.woff") format("woff");
+    font-display: swap;
+}
+
+a {
+    color: var(--theme-deep-gold);
+}
+
+.text-deep-gold {
+    color: var(--theme-deep-gold);
+}
+
+.van-toast {
+    background: var(--van-toast-background) !important;
+}
+
+:root {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    --van-primary-color: #baa586;
+    --van-border-color: #dddddd;
+
+    --color-primary: #baa586;
+    --color-font: var(--theme-deep-gold);
+    --color-price: red;
+    --color-background: #e1e1e1;
+    --size-subject: 32px;
+    --size-info: 28px;
+    --padding: 20px;
+    --padding-box: 10px 20px;
+    --margin-outer: 20px;
+    --margin: 20px;
+    --block: 20px;
+}
+
+.padding {
+    padding: var(--padding);
+}
+
+.font-subject {
+    font-size: var(--size-subject);
+}
+
+.font-info {
+    font-size: var(--size-info);
+}
+
+a {
+    font-weight: 500;
+    color: var(--color-font);
+    text-decoration: inherit;
+}
+
+a:hover {
+    color: var(--color-font);
+}
+
+body {
+    margin: 0;
+    /* display: flex; */
+    /* place-items: center; */
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+}
+
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+button:hover {
+    border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+.card {
+    padding: 2em;
+}
+
+#app {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0;
+    /* text-align: center; */
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+@media screen and (min-width: 750px) {
+    .van-tabbar--fixed {
+        left: calc(50vw - 375px);
+        max-width: 750px;
+        margin: 0 auto;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        color: #213547;
+        background-color: #ffffff;
+    }
+
+    a:hover {
+        color: var(--color-font);
+    }
+
+    button {
+        background-color: #f9f9f9;
+    }
+}
+
+.background {
+    background-color: var(--color-background) !important;
+}
+
+.link {
+    color: var(--theme-deep-gold);
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.shadow-gold {
+    --radius: 10px;
+    box-shadow: 0 0 4px 0 var(--theme-gold);
+    border-radius: var(--radius);
+    box-sizing: border-box;
+}
+
+.bg.clickable:hover,
+.bg.clickable:focus,
+.bg.clickable:active {
+    background-color: #333333;
+}
+
+.shadow-gold.clickable:hover,
+.shadow-gold.clickable:focus,
+.shadow-gold.clickable:active {
+    box-shadow: 0 0 10px 0 var(--theme-gold);
+}
+
+.van-grid-item__content--clickable:active {
+    box-shadow: 0 0 10px 0 var(--theme-gold);
+    background-color: transparent !important;
+}
+
+.van-search__content {
+    border-radius: 32px !important;
+}
+
+.popup-nav-bar {
+    --van-nav-bar-title-text-color: #ffffff;
+    --van-nav-bar-background: #222222;
+}
+
+.ignore-btn {
+    border-color: var(--grey);
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 36px;
+    line-height: 36px;
+    background: var(--grey);
+    color: #ffffff;
+    border-radius: 36px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.ignore-default-btn {
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 36px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.ignore-theme-btn {
+    box-sizing: border-box;
+    cursor: pointer;
+    height: 36px;
+    line-height: 36px;
+    background: var(--theme-gradual-btn);
+    border-radius: 36px;
+    text-align: center;
+    color: #1f1f1f;
+    font-size: 14px;
+}
+
+.van-button--block.ignore-theme-btn {
+    padding: 20px 0;
+}
+
+.ignore-theme-btn.action, .ignore-btn.action {
+    padding: 0 20px;
+}
+
+.bar-btn {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    box-sizing: border-box;
+    background: var(--theme-gradual-btn);
+    box-sizing: border-box;
+    margin: 20px 30px;
+    width: calc(100% - 60px);
+    border-radius: 48px;
+    color: #1f1f1f;
+}
+
+.bar-btn-box {
+    height: 120px;
+}
+
+.ignore-share {
+    width: 21px;
+    height: 18px;
+    background-image: url(@/assets/imgs/share.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+}
+
+.ignore-tabs {
+    --van-tabs-nav-background: var(--theme-bar);
+    --van-tab-active-text-color: #ffffff;
+    --van-tab-text-color: var(--theme-deep-gray);
+    --van-tabs-bottom-bar-color: var(--theme-gradual-gold);
+}
+
+.ignore-tabs .van-tab--active {
+    --van-tab-font-size: 20px;
+}
+
+.bg-gradual-cell {
+    background: var(--theme-gradual-cell) !important;
+    color: #ffffff;
+}
+
+.bg-gradual-gold {
+    background: var(--theme-gradual-gold) !important;
+    color: #ffffff;
+}
+
+.margin {
+    margin: var(--block);
+}
+
+.margin-left {
+    margin-left: var(--block);
+}
+
+.margin-right {
+    margin-right: var(--block);
+}
+
+.margin-top {
+    margin-top: var(--block);
+}
+
+.margin-bottom {
+    margin-bottom: var(--block);
+}
+
+.margin-lr {
+    margin-left: var(--block);
+    margin-right: var(--block);
+}
+
+.margin-tb {
+    margin-top: var(--block);
+    margin-bottom: var(--block);
+}
+
+.padding {
+    padding: var(--block);
+}
+
+.padding-left {
+    padding-left: var(--block);
+}
+
+.padding-right {
+    padding-right: var(--block);
+}
+
+.padding-top {
+    padding-top: var(--block);
+}
+
+.padding-bottom {
+    padding-bottom: var(--block);
+}
+
+.padding-lr {
+    padding-left: var(--block);
+    padding-right: var(--block);
+}
+
+.padding-tb {
+    padding-top: var(--block);
+    padding-bottom: var(--block);
+}
+
+.radius {
+    border-radius: 10px;
+}
+
+.text-lg {
+    font-size: 32px;
+}
+
+.text-default {
+    font-size: 28px;
+}
+
+.text-sm {
+    font-size: 24px;
+}
+
+.liked,
+.like {
+    cursor: pointer;
+    width: 41px;
+    height: 39px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.liked {
+    background-image: url(@/assets/imgs/liked.png);
+}
+
+.like {
+    background-image: url(@/assets/imgs/like.png);
+}
+
+.van-dialog__footer .van-button--default {
+    color: #ffffff;
+}
+
+.van-dialog__footer .van-button--default:first-child {
+    background: var(--theme-gradual-cell);
+    border-radius: 0 0 0 10px;
+}
+
+.van-dialog__footer .van-button--default:last-child {
+    background: var(--theme-gradual-gold);
+    color: #1f1f1f;
+    border-radius: 0 0 10px 0;
+}
+
+.van-dialog__header {
+    color: #ffffff;
+}
+
+.van-field--disabled {
+    /* --van-cell-group-background: #666666;
+    --van-cell-background: #666666; */
+    --van-field-input-disabled-text-color: #666666;
+}
+
+.text-deep-gold {
+    color: var(--theme-deep-gold);
+}
+
+.text-gray {
+    color: var(--gray);
+}
+
+.text-red {
+    color: var(--red);
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.text-grey {
+    color: var(--grey);
+}
+
+.van-cell-group--inset {
+    overflow: inherit;
+}
+
+.van-search__content {
+    border: 1px solid var(--van-cell-value-color);
+}
+
+.dialog {
+    background-color: #222222;
+}
+
+.tag-active {
+    background-color: var(--theme-deep-gold) !important;
+    color: #1f1f1f !important;
+}
+
+.tag-unactive {
+    background-color: #1f1f1f !important;
+    color: var(--theme-deep-gold) !important;
+}
+
+.van-step--horizontal .van-step__circle-container {
+    background-color: var(--theme-bg) !important;
+}
+
+.van-share-sheet__cancel:before {
+    background-color: var(--theme-bg) !important;
+}
+
+.height-100 {
+    min-height: 100vh;
+}
+
+.bg {
+    @apply bg-gradient-to-r  b-rd-6px b-1px b-transparent  text-white  from-#2f2d2a  to-#36332D
+}
+.bg-without-rd {
+    @apply bg-gradient-to-r    b-transparent  text-white  from-#2f2d2a  to-#36332D
+}
+.linear {
+    background: var(--theme-gradual-gold);
+    color: #000000;
+}
+
+.border-1px{
+    border: 1px solid var(--theme-deep-gold);
+}

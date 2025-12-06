@@ -1,0 +1,79 @@
+body {
+  box-sizing: border-box;
+  width:100%;
+  overflow-x: hidden;
+}
+.back {
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  color: #ffffff;
+}
+.sign-form {
+  box-sizing: border-box;
+  position: absolute;
+  top: 80vw;
+  left: 10vw;
+  width: 80vw;
+}
+.layui-input{
+  width:80vw;
+}
+.sign-form .code-input {
+  width: 40vw;
+  display: inline-block;
+  margin-right: 10px;
+}
+.tips {
+  color: #ffffff;
+  /**增加文字阴影**/
+  text-shadow: 0 0 10px #000000;
+  margin-bottom: 10px;
+  width:80vw;
+  height:2em;
+}
+.layui-btn {
+  background-color: #e7cea2;
+}
+
+.sign-page {
+  background-image: url(https://oss-sylf.zhizhangame.com/storage/a2bb114880035a4ea9630e0d94c1e84115e885d5.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center top;
+  height: 216.5vw;
+  width: 100vw;
+}
+
+/**当屏幕宽度超过750时**/
+@media screen and (min-width: 950px) {
+  .sign-page {
+    background-image: url(https://oss-sylf.zhizhangame.com/storage/4bdc57d6dde789be82e561efc3290e1e646b39d5.jpg);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center top;
+    height:56.25vw;
+    width: 100vw;
+    background-color:#000000
+  }
+  .back {
+    display: none;
+  }
+  .sign-form {
+    top: 20vw;
+    left: calc(50% - 150px);
+    width: 300px;
+  }
+  .tips{
+    width:300px
+  }
+  .layui-input{
+    width:300px;
+  }
+  .sign-form .code-input{
+    width:178px;
+  }
+}
