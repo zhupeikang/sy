@@ -104,7 +104,7 @@ watch(() => refreshStore.asset, (newData) => {
       <div class="list">
         <div class="item shadow-gold clickable" v-for="(item, index) in list" :key="index"
              @click="lookDetail(item)">
-          <div class="cover" :style="{backgroundImage: `url(${item.contract.cover_url})`}">
+          <div class="cover" :style="{backgroundImage: `url(${item.contract?.cover_url})`}">
             <div class="lock" v-if="item.lock_flag && item.lock_flag != 'no'"></div>
             <!--            <div style="position: absolute;top:0;right: 0">-->
             <!--              <Tag show-unit title="数量" :value="item.count"></Tag>-->
@@ -112,7 +112,7 @@ watch(() => refreshStore.asset, (newData) => {
 
           </div>
           <div class="info">
-            <div class="van-ellipsis">{{ item.contract.name }}</div>
+            <div class="van-ellipsis">{{ item.contract?.name }}</div>
             <!--                        <div class="no">{{ item.asset_no }}</div>-->
           </div>
 
