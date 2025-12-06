@@ -105,12 +105,13 @@ onLoad()
             <div class="flex justify-between align-center padding" style="border-bottom: 1px solid">
               <div class="flex justify-between align-center">
                 <div class="flex align-center">
-                  <Avatar :url="item.contract.cover_url" />
-                  <div class=" padding-left" >
+                  <Avatar :lock="item.lock_flag!='no'"  :url="item.contract.cover_url" />
+                  <div class=" padding-left relative" >
                     <div style="font-size: 16px">
                       {{ item.contract.name }}
                     </div>
                     <div style="color: gray;font-size: 12px">{{ item.asset_no }}</div>
+
                   </div>
                 </div>
               </div>
