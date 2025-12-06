@@ -37,15 +37,19 @@ const isGif = computed(() => {
 <template>
   <div class="main">
     <div v-if="!isGif" class="img-box-perspective flex  align-center justify-center" style="position: relative;z-index: 99">
-      <div class="img-box flex align-center justify-center">
-        <div class="img-box2 flex align-center justify-center">
-          <div class="img" :style="{ backgroundImage: `url(${props.img})` }"></div>
-        </div>
+      <div class="w-400px img-box img-box-perspective p-4 flex align-center justify-center">
+      <div class="img-box2 w-full h-full flex align-center justify-center">
+        <img :src="props.img" class="w-full h-full rounded-lg" />
       </div>
+      </div>
+<!--      <div class="img-box flex align-center justify-center">-->
+<!--        <div class="img-box2 flex align-center justify-center">-->
+<!--          <div class="img" :style="{ backgroundImage: `url(${props.img})` }"></div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <div v-else>
       <div class="img" :style="{ backgroundImage: `url(${props.img})` }"></div>
-
     </div>
     <!--套餐内不露出-->
     <div class="model-btn" v-if="props.model" @click="emits('model')">
@@ -136,8 +140,8 @@ const isGif = computed(() => {
   }
   .img-box {
     border-radius: 10px;
-    height: 550px;
-    width: 550px;
+    //height: 550px;
+    //width: 550px;
     border: 2px solid #fff;
     margin: 20px;
     box-shadow: 0 0 10px  #fff;
@@ -145,8 +149,8 @@ const isGif = computed(() => {
   }
   .img-box2 {
     border-radius: 10px;
-    height: 520px;
-    width: 520px;
+    //height: 520px;
+    //width: 520px;
     border: 2px solid #fff;
     transition: drop-shadow 3s ease-in-out; /* 过渡动画 */
 
