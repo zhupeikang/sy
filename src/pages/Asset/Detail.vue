@@ -210,7 +210,7 @@ const config = useConfigStore();
           <div class="flex align-center justify-between">
             <div class="van-ellipsis" style="width: 80%" v-if="asset.token_id">资产地址：{{ asset.token_id }}
             </div>
-            <van-icon size="16" name="file-copy" class="right-icon" class-prefix="sylf-icon" @click="onCopy(asset.token_id)" />
+            <van-icon size="16" v-if="asset.token_id" name="file-copy" class="right-icon" class-prefix="sylf-icon" @click="onCopy(asset.token_id)" />
           </div>
           <div class="flex align-center justify-between">
             <div class="van-ellipsis">合约地址：{{ contract.chain_contract_id }}</div>

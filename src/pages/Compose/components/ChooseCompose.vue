@@ -24,6 +24,7 @@ defineExpose({
 });
 const onRefresh = async () => {
   finished.value = false;
+  currentPage.value=1
   list.value = [];
   await onLoad();
 };
@@ -31,24 +32,22 @@ const onRefresh = async () => {
 /**
  * 加载数据
  */
+const currentPage = ref(1);
 const onLoad = async () => {
   loading.value = true;
   const res = await getPlanComposeListApi({
-    limit: 10,
-    skip: list.value.length,
+    size: 10,
     showError: true,
+    page:currentPage.value,
   });
   loading.value = false;
   refreshing.value = false;
   if (res) {
     if (res.code == 200) {
-      if (res.data.list.length < 10) {
+      if (res.data.current_page >= res.data.last_page) {
         finished.value = true;
       }
-      // 取出selected
-
-
-      list.value = list.value.concat(res.data.list);
+      list.value = list.value.concat(res.data.data);
     } else {
       error.value = true;
       errorText.value = res.msg;
@@ -73,22 +72,25 @@ const emits = defineEmits(['choose']);
                 :error="error" :error-text="errorText" :style="{ overflowX: 'scroll' }" class="list">
         <div v-for="(item, index) in  list " :key="index.toString()" class="compose-item"
              @click="emits('choose', item); visible = false">
-          <div class="main item">
+          <div class="main item relative">
             <div class="cover" :style="{
                                 backgroundImage: 'url(' + item.plan.cover_url + ')'
                             }
                             "></div>
             <div class="name">{{ item.plan.subject }}</div>
+            <div class="supply text-sm absolute top-0 r-0 bg-black/80 w-full color-white padding-xs radius-sm">
+              剩余: {{ item.total_supply=='0'?'无限制':`${item.supply}/${item.total_supply}` }}
+            </div>
           </div>
 
           <van-icon name="arrow-left" />
 
-          <div class="item" v-for="( child, i ) in  item.children " :key="i + '_' + index">
+          <div class="item" v-for="( child, i ) in  item.config " :key="i + '_' + index">
             <div class="cover" :style="{
-                                backgroundImage: 'url(' + child.contract.cover_url + ')'
+                                backgroundImage: 'url(' + child.cover_url + ')'
                             }
                             "></div>
-            <div class="name">{{ child.contract.name }}</div>
+            <div class="name">{{ child.name }}</div>
           </div>
         </div>
 

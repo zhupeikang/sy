@@ -37,24 +37,24 @@ export const createForumThreadApi = (data: any): Promise<IResponse<{
     thread_no: string,
     status: string
 }>> => {
-    return request.post({ url: '/v2/forum/thread/create', data })
+    return request.post({ url: 'v3/forum/forum/create', data })
 }
 
 
 export const replyForumThreadApi = (data: any): Promise<IResponse<ThreadType>> => {
-    return request.post({ url: '/v2/forum/thread/reply', data })
+    return request.post({ url: 'v3/forum/forum/reply', data })
 }
 
 export const getForumThreadApi = (params: any): Promise<IResponse<{
     thread: ThreadType
 }>> => {
-    return request.get({ url: '/v2/forum/thread/detail', params })
+    return request.get({ url: 'v3/forum/forum/detail', params })
 }
 
 export const getForumReplyListApi = (params: any): Promise<IResponse<{
     list: ThreadType[],
 }>> => {
-    return request.get({ url: '/v2/forum/thread/replies', params })
+    return request.get({ url: 'v3/forum/forum/reply_list', params })
 }
 
 export const likeForumThreadApi = (params: any): Promise<IResponse<{
@@ -66,5 +66,5 @@ export const likeForumThreadApi = (params: any): Promise<IResponse<{
 export const getForumThreadListApi = (params: any): Promise<IResponse<{
     list: ThreadType[],
 }>> => {
-    return request.get({ url: '/v2/forum/thread/list', params })
+    return request.get({ url: 'v3/forum/forum/list', params })
 }

@@ -100,8 +100,8 @@ const showImg = (index: number) => {
           </van-button>
         </div>
       </div>
-      <van-swipe :autoplay="3000" lazy-render v-if="game.imgs.length > 0">
-        <van-swipe-item v-for="(image, index) in game.imgs" :key="index.toString()">
+      <van-swipe :autoplay="3000" lazy-render v-if="game?.imgs?.length > 0">
+        <van-swipe-item v-for="(image, index) in game?.imgs" :key="index.toString()">
           <div class="desc_img_box">
 
             <img :src="image" class="desc_img" @click="showImg(index)" />
@@ -110,9 +110,9 @@ const showImg = (index: number) => {
       </van-swipe>
 
       <van-text-ellipsis rows="3" :content="game.description" expand-text="展开" collapse-text="收起" class="desc" />
-      <div v-if="game.children.length > 0" class="activity-list">
+      <div v-if="game.item.length > 0" class="activity-list">
         <div>相关活动</div>
-        <div class="item flex clickable" v-for="(item, index) in game.children" :key="index.toString()"
+        <div class="item flex clickable" v-for="(item, index) in game.item" :key="index.toString()"
              @click="onClick(item)">
           <div class="thumb" :style="{
                         backgroundImage: `url(${item.cover_url})`

@@ -9,20 +9,18 @@ import { getHomeTopicListApi, getPlanType } from '@/api/home';
 import { track } from '@/utils';
 
 const router = useRouter();
-const activeIndex = ref(0)
+const activeIndex = ref(null)
 const planTypeList = ref<{
   id: number,
-  name: string
+  value: number,
+  label: string
 }[]>([]);
 const planTypeLoad = () => {
   getPlanType().then(res => {
-    planTypeList.value = res.data.data;
+    planTypeList.value = res.data;
   });
 };
-const selectPlanType=computed(()=>{
-  if (planTypeList.value.length==0) return 0;
-  return planTypeList.value[activeIndex.value].id
-})
+
 const tabActive = ref('recommend');
 watch(() => tabActive.value, () => {
   if (tabActive.value == 'topic' || tabActive.value == 'plan') {
@@ -31,17 +29,18 @@ watch(() => tabActive.value, () => {
     });
   }
 });
-watch(() => selectPlanType.value, () => {
-  if (tabActive.value == 'recommend') {
+watch(activeIndex, (newVal, oldVal) => {
+  if (tabActive.value === 'recommend') {
     recommendList.value = [];
     recommendFinished.value = false;
+    currentRecommendPage.value = 1;
     recommendLoad();
-  } else if (tabActive.value == 'plan') {
+  } else if (tabActive.value === 'plan') {
     planList.value = [];
     planFinished.value = false;
+    currentPlanPage.value = 1;
     planLoad();
   }
-
 });
 const toSearch = () => {
   track('home', {
@@ -63,17 +62,16 @@ const recommendLoading = ref(false);
 const recommendFinished = ref(false);
 const recommendError = ref(false);
 const recommendErrorText = ref('');
+const currentRecommendPage = ref(1);
 const recommendLoad =  () => {
-  if (recommendLoading.value) {
-    return;
-  }
+
   recommendLoading.value = true;
   getPlanListApi({
-    skip: recommendList.value.length,
-    limit,
+    page: currentRecommendPage.value,
+    size:30,
     recommend: 'Y',
     showError: true,
-    type_id: selectPlanType.value
+    type_id: activeIndex.value
   })
     .then(res => {
       if (res.code != 200) {
@@ -81,11 +79,12 @@ const recommendLoad =  () => {
         recommendErrorText.value = res.msg;
         return;
       }
-      if (res.data.list.length < limit) {
+      if (res.data.current_page >= res.data.last_page) {
         recommendFinished.value = true;
       }
-      if (res.data.list.length > 0) {
-        recommendList.value = recommendList.value.concat(res.data.list);
+      if (res.data.data.length > 0) {
+        recommendList.value = recommendList.value.concat(res.data.data);
+        currentRecommendPage.value += 1;
       }
     })
     .catch(err => {
@@ -100,17 +99,17 @@ const planLoading = ref(false);
 const planFinished = ref(false);
 const planError = ref(false);
 const planErrorText = ref('');
+const currentPlanPage = ref(1);
 const planLoad = () => {
   if (planLoading.value) {
     return;
   }
   planLoading.value = true;
   getPlanListApi({
-    skip: planList.value.length,
-    limit,
+    page: currentPlanPage.value,
+    size:10,
     showError: true,
-    type_id: selectPlanType.value
-
+    type_id: activeIndex.value
   })
     .then(res => {
       if (res.code != 200) {
@@ -118,11 +117,12 @@ const planLoad = () => {
         planErrorText.value = res.msg;
         return;
       }
-      if (res.data.list.length < limit) {
+      if (res.data.current_page >= res.data.last_page) {
         planFinished.value = true;
       }
-      if (res.data.list.length > 0) {
-        planList.value = planList.value.concat(res.data.list);
+      if (res.data.data.length > 0) {
+        planList.value = planList.value.concat(res.data.data);
+        currentPlanPage.value += 1;
       }
     })
     .catch(err => {
@@ -166,19 +166,34 @@ const topicLoad = () => {
       topicErrorText.value = err.message;
     })
     .finally(() => topicLoading.value = false);
-  console.log('topicLoad');
 };
+
+
 </script>
 <template>
   <div class="content">
     <van-search class="search ignore-search" disabled placeholder="搜索" @click="toSearch" />
     <van-tabs v-model:active="tabActive" class="ignore-tabs" lazy-render shrink>
-      <van-tab name="recommend" title="推荐">
-        <div class="flex gap-20px margin">
-          <div @click="()=>activeIndex=index" :class="activeIndex===index?'tag-active':''" class="shadow-gold p-x-10px p-y-6px  text-center" v-for="(item,index) in planTypeList" :key="item.id">
-            {{ item.name }}
+      <div class="relative w-full overflow-x-auto"> <!-- -mx-2 只是为示例，让滚动条不被 padding 吃掉 -->
+        <!-- 内层用 inline-flex 或 flex flex-nowrap + 子元素 shrink-0 -->
+        <div class="flex gap-20px p-2 whitespace-nowrap">
+          <div
+            v-for="(item, index) in planTypeList"
+            :key="item.value"
+            @click="activeIndex = item.value"
+            :class="activeIndex === item.value ? 'tag-active' : ''"
+            class="text-center  shadow-gold p-x-16px p-y-12px min-w-150px text-center inline-block text-sm"
+          >
+            {{ item.label }}
           </div>
         </div>
+      </div>
+
+      <van-tab name="recommend" title="推荐">
+        <!-- 父容器必须是固定宽度或占满可视宽度，且允许横向滚动 -->
+
+
+
         <van-list v-model:error="recommendError" :error-text="recommendErrorText" :finished="recommendFinished"
                   :loading="recommendLoading" finished-text="没有更多推荐了" @load="recommendLoad">
           <PlanList :data-list="recommendList" />
@@ -191,11 +206,6 @@ const topicLoad = () => {
         </van-list>
       </van-tab>
       <van-tab name="plan" title="全部">
-        <div class="flex gap-20px margin">
-          <div @click="()=>activeIndex=index" :class="activeIndex===index?'tag-active':''" class="shadow-gold p-x-10px p-y-6px  text-center" v-for="(item,index) in planTypeList" :key="item.id">
-            {{ item.name }}
-          </div>
-        </div>
 
         <van-list v-model:error="planError" :error-text="planErrorText" :finished="planFinished" :loading="planLoading"
                   finished-text="没有更多了" @load="planLoad">

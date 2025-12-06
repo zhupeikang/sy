@@ -5,7 +5,7 @@ export const getHomeIndexApi = (): Promise<IResponse<{
     banners: BannerType[],
     grids: GridType[]
 }>> => {
-    return request.get({ url: '/v2/home/index', })
+    return request.get({ url: 'v3/home/home/index', })
 }
 
 

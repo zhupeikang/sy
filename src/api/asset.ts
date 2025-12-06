@@ -8,7 +8,7 @@ export const getAssetDetailApi = (params: any): Promise<IResponse<{
     plans: PlanDisplayType[]
     transfer?: TransferType
 }>> => {
-    return request.get({ url: '/v2/asset/detail', params })
+    return request.get({ url: 'v3/asset/asset/detail', params })
 }
 
 export const getAssetContractApi = (params: any): Promise<IResponse<{
@@ -20,10 +20,10 @@ export const getAssetContractApi = (params: any): Promise<IResponse<{
 }
 
 export const transferAssetApi = (data: any): Promise<IResponse<TransferType>> => {
-    return request.post({ url: '/v2/asset/transfer', data })
+    return request.post({ url: 'v3/asset/transfer/transfer', data })
 }
 export const cancelTransferAssetApi = (data: any): Promise<IResponse> => {
-    return request.post({ url: '/v2/asset/transfer_cancel', data })
+    return request.post({ url: 'v3/asset/transfer/cancel', data })
 }
 
 export const getTransferAssetDetailApi = (params: any): Promise<IResponse<TransferType>> => {
@@ -36,7 +36,7 @@ export const confirmTransferAssetApi = (data: any): Promise<IResponse> => {
 export const getAssetLogListApi = (params:any): Promise<IResponse<{
     list: AssetLogType[],
 }>> => {
-    return request.get({ url: '/v2/asset/log_list',params })
+    return request.post({ url: 'v3/asset/asset_log/list',params })
 }
 
 export const getAssetLogDetailApi = (params:any): Promise<IResponse<{
@@ -44,7 +44,7 @@ export const getAssetLogDetailApi = (params:any): Promise<IResponse<{
     log_list: AssetLogType[],
     publisher: UserType
 }>> => {
-    return request.get({ url: '/v2/asset/log_detail',params })
+    return request.get({ url: 'v3/asset/asset/detail',params })
 }
 // 重新领取权益
 export const applyAssetApi = (data: any): Promise<IResponse> => {

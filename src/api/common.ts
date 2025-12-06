@@ -10,5 +10,5 @@ export const getConfigApi = (): Promise<IResponse<{
 export const getDictApi = (): Promise<IResponse<{
     [key: string]: OptionType[],
 }>> => {
-    return request.get({ url: '/v2/common/dict' })
+    return request.get({ url: 'v3/dict/dict/dict' })
 }

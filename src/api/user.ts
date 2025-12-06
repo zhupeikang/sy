@@ -92,7 +92,7 @@ export const getUserAssetListApi = (params: any): Promise<IResponse<{
 export const getUserAssetListApiV2 = (params: any): Promise<IResponse<{
     list: AssetType[],
 }>> => {
-    return request.get({ url: '/v2/user/profile/asset_aggregate', params })
+    return request.get({ url: '/v3/asset/asset/list_by_contract', params })
 }
 
 // /v2/user/profile/user_asset_pending_count
@@ -103,7 +103,7 @@ export const getUserAssetPendingCount =()=>{
 export const getUserAssetGroup = (params: any): Promise<IResponse<{
     list: AssetType[],
 }>> => {
-    return request.get({ url: '/v2/user/profile/asset_under_contract', params })
+    return request.get({ url: 'v3/asset/asset/under_contract_all', params })
 }
 
 export const getUserPageApi = (params: any): Promise<IResponse<{

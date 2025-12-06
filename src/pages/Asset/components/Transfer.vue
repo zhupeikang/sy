@@ -221,7 +221,7 @@ watch(() => props.show, (newValue) => {
                 <van-cell title="接收地址" :value="transfer.receive_address" v-if="transfer.type == 'address'" />
                 <van-cell title="接收人" :value="transfer.receive_nickname" v-else is-link
                     @click="router.push('/u/' + transfer.receive_uid)" />
-                <van-cell title="有效期" :value="toDatetime(transfer.expired_at)" />
+                <van-cell title="有效期" :value="toDatetime(transfer.created_at+86400)" />
                 <div class="padding">
                     <van-button type="primary" @click="onCancel" class="ignore-theme-btn action">取消转赠</van-button>
                 </div>
@@ -230,7 +230,7 @@ watch(() => props.show, (newValue) => {
                 <van-cell title="转出地址" :value="transfer.send_address" v-if="transfer.type == 'address'" />
                 <van-cell title="转出人" :value="transfer.send_nickname" v-else is-link
                     @click="router.push('/u/' + transfer.uid)" />
-                <van-cell title="有效期" :value="toDatetime(transfer.expired_at)" />
+                <van-cell title="有效期" :value="toDatetime(transfer.created_at+86400)" />
                 <div class="padding flex justify-between">
                     <van-button type="danger" @click="onReject" class="ignore-default-btn action">拒绝转赠</van-button>
                     <van-button type="primary" @click="onConfirm" class="ignore-theme-btn action">确认接收</van-button>

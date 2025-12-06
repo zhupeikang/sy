@@ -39,14 +39,16 @@ const showModal = computed({
     emits('update:show', val)
   }
 })
+const currentPage = ref(1)
 const onLoad = () => {
   if (loading.value) return
   loading.value = true
   getUserAssetGroup({
     // getUserAssetListApi({
     uid: props.uid,
+    page:currentPage.value,
+    size:20,
     contract_id: props.item.contract_id,
-    skip: list.value.length,
     limit,
     showError: true
   })
@@ -56,11 +58,12 @@ const onLoad = () => {
         errorText.value = res.msg
         return
       }
-      if (res.data.list.length < limit) {
+      if (res.data.current_page>=res.data.last_page) {
         finished.value = true
       }
-      if (res.data.list.length > 0) {
-        list.value = list.value.concat(res.data.list)
+      if (res.data.data.length > 0) {
+        list.value = list.value.concat(res.data.data)
+        currentPage.value += 1
       }
     })
     .catch(err => {
@@ -74,7 +77,7 @@ const onLoad = () => {
 }
 const onRefresh = () => {
   finished.value = false;
-
+  currentPage.value = 1;
   error.value = false
   errorText.value = ''
   // 重新加载数据
@@ -102,10 +105,10 @@ onLoad()
             <div class="flex justify-between align-center padding" style="border-bottom: 1px solid">
               <div class="flex justify-between align-center">
                 <div class="flex align-center">
-                  <Avatar :url="item.cover_url" />
+                  <Avatar :url="item.contract.cover_url" />
                   <div class=" padding-left" >
                     <div style="font-size: 16px">
-                      {{ item.name }}
+                      {{ item.contract.name }}
                     </div>
                     <div style="color: gray;font-size: 12px">{{ item.asset_no }}</div>
                   </div>

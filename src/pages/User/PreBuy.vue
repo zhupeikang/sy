@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import NavBar from '@/components/NavBar.vue';
 import { getPlanListApi } from '@/api/plan';
 import { h, ref } from 'vue';
@@ -12,6 +12,7 @@ const dataList = ref([]);
 const loading = ref(false);
 const finished = ref(false);
 const refreshing = ref(false);
+const currentPage = ref(1);
 const getDataList = () => {
   if (loading.value) return;
   loading.value = true;
@@ -19,19 +20,21 @@ const getDataList = () => {
     skip: 0,
     limit: 100,
     pre: 'Y',
-    showError: true,
-  })
-    .then(res => {
-      dataList.value = res.data.list;
-      finished.value = true;
-      loading.value = false;
-    }).finally(() => {
+    page: currentPage.value,
+    size: 100,
+}).
+  then(res => {
+    dataList.value = res.data.data;
+    finished.value = true;
+    loading.value = false;
+  }).finally(() => {
     loading.value = false;
     refreshing.value = false;
   });
 };
 
 const onRefresh = () => {
+  currentPage.value = 1;
   finished.value = false;
   dataList.value = [];
   getDataList();
@@ -105,15 +108,15 @@ const getContent = (item: any) => {
   <NavBar title="优先购" />
   <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
     <van-list v-model:loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-      <div class="info" v-for="(item,index) in dataList" :key="index">
+      <div v-for="(item,index) in dataList" :key="index" class="info">
         <van-card
-          @click="goDetail(item)"
-          class="card"
           :thumb="item.cover_url"
+          class="card"
+          @click="goDetail(item)"
         >
           <template #title>
             <div class="van-multi-ellipsis--l2  " style="margin: 0;font-size: 18px">{{ item?.subject }}</div>
-            <Tag :title="item?.limits?'限购':'不限购'" show-unit :show-value="item?.limits" :value="item?.limits" />
+            <Tag :show-value="item?.limits" :title="item?.limits?'限购':'不限购'" :value="item?.limits" show-unit />
           </template>
           <template #desc>
             <div class="flex co" style="width: 85%;margin-top: 8px">
@@ -157,7 +160,7 @@ const getContent = (item: any) => {
   </van-pull-refresh>
 </template>
 
-<style scoped lang="less">
+<style lang="less" scoped>
 .card {
   color: var(--theme-gold);
   font-size: 28px;
@@ -178,11 +181,12 @@ const getContent = (item: any) => {
   color: var(--theme-gold);
 }
 
-.co{
-  background: linear-gradient(45deg, white,wheat );
+.co {
+  background: linear-gradient(45deg, white, wheat);
   border-radius: 6px;
 
 }
+
 .left {
   display: flex;
   align-items: center;

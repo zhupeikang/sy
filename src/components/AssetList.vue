@@ -30,19 +30,16 @@ const limit = 18;
 onActivated(() => {
   onLoad();
 });
+const currentPage = ref(1);
 const onLoad = () => {
   if (loading.value) return;
-
   loading.value = true;
-  list.value = [];
-
   getUserAssetListApiV2({
-    // getUserAssetListApi({
     uid: props.uid,
-    skip: list.value.length,
-    limit,
+    page: currentPage.value,
+    size:limit,
     showError: true,
-    searchValue:searchValue.value
+    search_value:searchValue.value
   })
     .then(res => {
       if (res.code != 200) {
@@ -50,11 +47,12 @@ const onLoad = () => {
         errorText.value = res.msg;
         return;
       }
-      if (res.data.list.length < limit) {
+      if (res.data.current_page>=res.data.last_page) {
         finished.value = true;
       }
-      if (res.data.list.length > 0) {
-        list.value = list.value.concat(res.data.list);
+      if (res.data.data.length > 0) {
+        list.value = list.value.concat(res.data.data);
+        currentPage.value += 1;
       }
     })
     .catch(err => {
@@ -68,7 +66,7 @@ const onLoad = () => {
 };
 const onRefresh = () => {
   finished.value = false;
-
+  currentPage.value = 1;
   error.value = false;
   errorText.value = '';
   // 重新加载数据
@@ -76,7 +74,7 @@ const onRefresh = () => {
   onLoad();
 };
 const toSearch=()=>{
-  console.log(searchValue.value);
+  onRefresh();
 }
 onLoad();
 const showDetail = ref(false);
@@ -100,13 +98,13 @@ watch(() => refreshStore.asset, (newData) => {
 </script>
 <template>
   <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-    <van-list :loading="loading" :finished="true" finished-text="没有更多了" @load="onLoad" :error="error"
+    <van-list :loading="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :error="error"
               :error-text="errorText">
-      <van-search class="search ignore-search" v-model="searchValue" placeholder="搜索"  @search="onLoad" />
+      <van-search class="search ignore-search" v-model="searchValue" placeholder="搜索"  @search="toSearch" />
       <div class="list">
         <div class="item shadow-gold clickable" v-for="(item, index) in list" :key="index"
              @click="lookDetail(item)">
-          <div class="cover" :style="{backgroundImage: `url(${item.cover_url})`}">
+          <div class="cover" :style="{backgroundImage: `url(${item.contract.cover_url})`}">
             <div class="lock" v-if="item.lock_flag && item.lock_flag != 'no'"></div>
             <!--            <div style="position: absolute;top:0;right: 0">-->
             <!--              <Tag show-unit title="数量" :value="item.count"></Tag>-->
@@ -114,7 +112,7 @@ watch(() => refreshStore.asset, (newData) => {
 
           </div>
           <div class="info">
-            <div class="van-ellipsis">{{ item.name }}</div>
+            <div class="van-ellipsis">{{ item.contract.name }}</div>
             <!--                        <div class="no">{{ item.asset_no }}</div>-->
           </div>
 

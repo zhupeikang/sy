@@ -60,8 +60,9 @@ watch(
           return;
         }
         shareUrl.value = window.location.origin + route.path;
-        plan.value = res.data.plan;
-        children.value = res.data.children;
+        plan.value = res.data;
+        console.log(res.data.plan_item);
+        children.value = res.data.plan_item;
         rights.value = res.data.rights;
         user.value = res.data.user;
         activities.value = res.data.activities;
@@ -130,7 +131,7 @@ const dict = useDictStore();
           <div>{{ plan?.type == 'blind' ? '盲盒' : '组合' }}套餐</div>
           <div>{{ plan?.limits == 0 ? '不限购' : `每人限购${plan?.limits}份` }}</div>
         </div>
-        <div v-if="plan.pre_contracts.length"
+        <div v-if="plan?.pre_contracts.length"
              class="flex justify-between  margin radius padding shadow-gold text-default">
           <div>1:点击下方：立即验证</div>
           <div>2:选择验证资产</div>
@@ -157,10 +158,10 @@ const dict = useDictStore();
                   <div v-else-if="plan?.type == 'normal'">获得数量：<span>{{ item.value }}份</span></div>
                 </div>
               </div>
-              <AssetRights :s="item.rights?.findIndex(n => n.tag == 'S') >= 0"
-                           :x="item.rights?.findIndex(n => n.tag == 'X') >= 0"
-                           :a="item.rights?.findIndex(n => n.tag == 'A') >= 0"
-                           :u="item.rights?.findIndex(n => n.tag == 'U') >= 0"
+              <AssetRights :s="item.contract.rights?.findIndex(n => n.tag == 'S') >= 0"
+                           :x="item.contract.rights?.findIndex(n => n.tag == 'X') >= 0"
+                           :a="item.contract.rights?.findIndex(n => n.tag == 'A') >= 0"
+                           :u="item.contract.rights?.findIndex(n => n.tag == 'U') >= 0"
                            :is-conflux="item.contract.is_con_flux"
               />
             </div>

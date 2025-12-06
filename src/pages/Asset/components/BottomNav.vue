@@ -55,7 +55,6 @@ const auth = ref<null | {
 const allowMobile = ref(true);
 const allowRealname = ref(false);
 const onSelect = async (action: any) => {
-  console.log(action);
   showPopover.value = false;
   const loading = showLoading();
   const res = await getUserPlatformApi({
@@ -114,16 +113,16 @@ const registerCfx = () => {
     <van-button type="primary" @click="emits('transfer')"
                 v-else-if="props.asset.lock_flag == 'transfer'">转赠待对方接收中...
     </van-button>
-    <van-button type="primary" v-else-if="props.asset.lock_flag != 'no'">{{
-        platforms.find(n => n.name == props.asset.lock_flag)?.text }}锁定中
-    </van-button>
-    <van-popover v-if="!['conflux','conflux_test'].includes(props.asset.platform)"   v-model:show="showPopover" theme="dark" :actions="platforms" placement="top-end" @select="onSelect">
-      <template #reference>
-        <van-button type="primary" class="ignore-theme-btn more-btn margin-left">
-          <van-icon name="ellipsis" class="more" />
+      <van-button type="primary" v-else-if="props.asset.lock_flag != 'no'">{{
+          platforms.find(n => n.name == props.asset.lock_flag)?.text }}锁定中
+      </van-button>
+        <!--        <van-button type="primary" class="ignore-theme-btn more-btn margin-left">-->
+        <!--          <van-icon name="ellipsis" class="more" />-->
+        <!--        </van-button>-->
+        <van-button v-if="!['conflux','conflux_test'].includes(props.asset.platform)" @click="onSelect({name:'xmeta'})" type="primary" class="ignore-theme-btn px-4  margin-left">
+          XMETA
         </van-button>
-      </template>
-    </van-popover>
+
     <van-popup v-model:show="showDialog" closeable position="bottom">
       <div class="authBox">
 

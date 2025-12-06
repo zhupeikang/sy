@@ -52,7 +52,7 @@ const emits = defineEmits(['like', 'click', 'reply'])
                 <div>
                     <div class="info flex justify-between">
                         <div class="name">{{ props.thread.user.nickname }}</div>
-                        <div class="time">{{ fuzzyTime(props.thread.publish_at) }}</div>
+                        <div class="time">{{ fuzzyTime(props.thread.created_at) }}</div>
                     </div>
                     <div :class="'text' + (simple ? ' simple' : '')">
                         <p v-for="(item, index) in props.thread.content.split('\n')" :key="index.toString">{{ item }}</p>

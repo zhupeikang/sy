@@ -33,7 +33,7 @@ export const createOrderApi = (data?: any): Promise<IResponse<{
     pre_asset?: string
     allow_wepay: boolean
 }>> => {
-    return request.post({ url: '/v2/order/create', data })
+    return request.post({ url: 'v3/plan/order/create', data })
 }
 
 export const checkOrderApi = (params?: any): Promise<IResponse<{
